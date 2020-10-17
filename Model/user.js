@@ -21,5 +21,25 @@ class FreeUser extends User {
     
 }
 
+class Match extends User {
+    constructor(userId, matchId) {
+        super(userId);
+        this.matchId = matchId;
+    }
+}
+
+class Interest {
+    constructor(gender) {
+        this.gender = gender;
+    }
+}
+
+class Image {
+    constructor(img) {
+        this.img = img;
+    }
+}
+
+
 module.exports = User;
 module.exports = PaymentUser;

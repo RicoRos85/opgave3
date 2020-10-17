@@ -12,9 +12,10 @@
   "dependencies": {
     "brew": "0.0.8",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
   }
-} 
+}
