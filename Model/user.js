@@ -7,7 +7,7 @@ class User {
         this.gender    = gender;
         this.member    = member;
     }
-}
+} 
 
 class PaymentUser extends User {
     constructor(userId, firstname, lastname, age, gender, member, cardId, expireDate) {
