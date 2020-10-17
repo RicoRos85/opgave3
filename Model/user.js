@@ -18,7 +18,9 @@ class PaymentUser extends User {
 }
 
 class FreeUser extends User {
-    
+    constructor(userId, firstname, lastname, age, gender, member) {
+        super(userId, firstname, lastname, age, gender, member);
+    }  
 }
 
 class Match extends User {
@@ -38,6 +40,17 @@ class Image {
     constructor(img) {
         this.img = img;
     }
+}
+
+function createUser() {    
+}
+
+function updateUser() {
+
+}
+
+function deleteUser() {
+
 }
 
 
