@@ -4,29 +4,18 @@ const jwt        = require('jsonwebtoken');
 const fs         = require('fs'); 
 const app        = express();
 const PORT       = 3000;
+const {getUsers, deleteUser, createUser, getImage, getCreditCardInfo} = require ("./Model/user");
 
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let userController = require('./Controller/userController');
+app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html');  }); 
+app.get("/users", getUsers ); 
+//app.post("/users", isAuthorized, createUser);
+app.get("/users/:userID/images", isAuthorized, getImage );
 
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-    
-}); 
-
-//app.get('/', userController);
-
-// app.get('/api', (req, res) => {
-//     res.json({
-//         message: "Welcome to the API"
-//     })
-// });
-
-app.post('/user', (req, res) => {
-    console.log(req.body); 
-});
+//app.post('/users', (req, res) => { console.log(req.body); });
 
 app.get('/secret', isAuthorized, (req, res) => {
     res.json({"message": "Super Secret Message"})

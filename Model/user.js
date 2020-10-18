@@ -34,7 +34,6 @@ class User {
     }
 } 
 
-
 ///////////////////////////
 //// PaymentUser Class
 ///////////////////////////
@@ -54,7 +53,6 @@ class PaymentUser extends User {
     }
 }
 
-
 ///////////////////////////
 //// FreeUser Class
 ///////////////////////////
@@ -63,7 +61,6 @@ class FreeUser extends User {
         super(userId, firstname, lastname, age, gender);
     }  
 }
-
 
 ///////////////////////////
 //// Match Class
@@ -74,7 +71,6 @@ class Match {
     }
 }
 
-
 ///////////////////////////
 //// Interests Class
 ///////////////////////////
@@ -84,7 +80,6 @@ class Interests {
     }
 }
 
-
 ///////////////////////////
 //// Image Class
 ///////////////////////////
@@ -93,7 +88,6 @@ class Image {
         this.img = img;
     }
 }
-
 
 ///////////////////////////
 //// CreditCard Class
@@ -105,6 +99,12 @@ class CreditCard {
         this.ccv        = ccv;
     }
 }
+
+
+const user1 = new PaymentUser("Victoria", "Skjøren", "female", [2000, 05, 12], 1);
+const user2 = new FreeUser("Hayley", "Sugden", "female", [2001, 11,27], 2);
+const users = [user1, user2];
+
 
 
 // Make functions/Classes ready for export

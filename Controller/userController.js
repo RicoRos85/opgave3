@@ -1,18 +1,6 @@
-let User = require('../Model/user.js');
-const { getUsers, FreeUser, PaymentUser } = require("./../index");
+//let User = require('../Model/user.js');
+const { getUsers, FreeUser, PaymentUser } = require("./../Model/user.js");
 
-// let users = [];
-// let User1 = new User(2736627, "Rico", "Rosenkrans", 30, "Mand", 2782, 92929);
-// let User2 = new User(2736628, "Ole", "Hansen", 34, "Mand", true, 2782, 92929);
-// let User3 = new User(2736629, "Helle", "Jørgensen", 23, "Kvinde", true, 2782, 92929);
-// users.push(User1,User2, User3);
-
-function userController(req, res) {
-    let elem = `<strong>ID:</strong> ${users}`;
-    let appendElem = elem.appendChild;
-    let displayUser = res.end(JSON.stringify(users));
-    console.log(displayUser);
-}
 
 // module.exports = userController;
 
@@ -34,9 +22,9 @@ module.exports = {
     },
     createUser(req, res) {
         let users = getUsers();
-        let user1 = new FreeUser("Rico", "Rosenkrans", 30, "Male");
-        users.push(user1);
-        return res.status(201).send(user1);
+        let user3 = new FreeUser("Rico", "Rosenkrans", 30, "Male");
+        users.push(user3);
+        return res.status(201).send(user3);
     },
     getImage(req, res) {
         let users  = getUsers();
