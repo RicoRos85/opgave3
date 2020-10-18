@@ -1,13 +1,13 @@
-const { getUsers, getMatches, Match} = require("./../Controller/userController.js");
+const { getUsers, getMatches, Match} = require("./../Model/user.js");
 
 module.exports = {
     getMatches(req, res) {
 
     },
-    deleteMatches(req, res) {
+    deleteMatch(req, res) {
 
     },
-    createMatches(req, res) {
+    createMatch(req, res) {
         
     }
 }

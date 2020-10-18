@@ -3,19 +3,35 @@ const bodyParser = require('body-parser')
 const jwt        = require('jsonwebtoken');
 const fs         = require('fs'); 
 const app        = express();
-const PORT       = 3000;
-const {getUsers, deleteUser, createUser, getImage, getCreditCardInfo} = require ("./Model/user");
+const PORT       = 3010;
+/*** Require all Controllers containing all relevant functions ***/
+const {getUsers, deleteUser, createUser, getImage, getCreditCardInfo} = require ("./Controller/userController");
+const {getInterests, deleteInterest, createInterest} = require("./Controller/interestsController");
+const {getMatches, deleteMatch, createMatch} = require("./Controller/matchesController");
+
 
 // Make sure you place body-parser before your CRUD handlers!
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html');  }); 
+
+// CRUD Users
 app.get("/users", getUsers ); 
-//app.post("/users", isAuthorized, createUser);
+app.delete("/users/:userID", isAuthorized, deleteUser );
+app.post("/users", createUser );
 app.get("/users/:userID/images", isAuthorized, getImage );
+app.get("/users/:userID/creditcard", isAuthorized, getCreditCardInfo );
 
+// CRUD Interests
+app.get("/users/:userID/interests", isAuthorized, getInterests );
+app.delete("/users/:userID/interests/:interest", isAuthorized, deleteInterest );
+app.post("/users/:userID/interests", isAuthorized, createInterest );
 
-//app.post('/users', (req, res) => { console.log(req.body); });
+// CRUD Matches 
+app.get("/users/:userID/matches", isAuthorized, getMatches );
+app.delete("/users/:userID/matches/:match", isAuthorized, deleteMatch );
+app.post("/users/:userID/matches", isAuthorized, createMatch );
+
 
 app.get('/secret', isAuthorized, (req, res) => {
     res.json({"message": "Super Secret Message"})
@@ -27,13 +43,14 @@ app.post('/api/posts', verifyToken, (req, res) => {
             res.sendStatus(403);
         } else {
             res.json({
-                message: "Post Created...",
+                message: "Post Created...", 
                 authData
             });
         }
     });
 });
 
+// Use /api/login to creare the privateKey/token 
 app.post('/api/login', (req, res) => {
     // Mock user
     const user = {
@@ -49,27 +66,32 @@ app.post('/api/login', (req, res) => {
     });
 });
 
+// Create the privateKey token
 app.get('/jwt', (req, res) => {
     let privateKey = fs.readFileSync('./private.pem', 'utf8');
     let token      = jwt.sign({"body":"stuff"}, privateKey, {algorithm: 'HS256'});
     res.send(token);
-})
+});
 
+// Check to see if privateKey is valid and verify
 function isAuthorized(req, res, next) {
     if(typeof req.headers.authorization !== "undefined") {
+        /* Split the string by each containing space, and select 
+           the 2nd element (the token) in the newly created array */
         let token = req.headers.authorization.split(" ")[1];
+        // Use fs to read the pem file
         let privateKey = fs.readFileSync('./private.pem', 'utf8');
 
         jwt.verify(token, privateKey, {algorithm: "HS256"}, (err, decoded) => {
             if(err) {
-                res.status(500).json({ error: "Not Authorized"})
+                res.status(401).json({ error: "Not Authorized"})
             }
-            console.log(decoded);
-
+            // console.log(decoded);
+            // Continue
             return next();
         })
     } else {
-        res.status(500).json({ error: "Not Authorized"})
+        res.status(401).json({ error: "Not Authorized"})
     }
 }
 
@@ -88,7 +110,7 @@ function verifyToken(req, res, next) {
         // Next middleware
         next();
     } else {
-        res.sendStatus(403);
+        res.sendStatus(401).json({ error: "Token is not verified"});
     }
 }
 

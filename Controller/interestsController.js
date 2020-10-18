@@ -1,4 +1,4 @@
-const { getUsers, FreeUser, PaymentUser } = require("./../Controller/userController.js");    
+const { getUsers, FreeUser, PaymentUser } = require("./../Model/user.js");
 
 module.exports = {
     getInterests(req, res) {

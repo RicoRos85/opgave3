@@ -101,15 +101,14 @@ class CreditCard {
 }
 
 
-const user1 = new PaymentUser("Victoria", "Skjøren", "female", [2000, 05, 12], 1);
-const user2 = new FreeUser("Hayley", "Sugden", "female", [2001, 11,27], 2);
+const user1 = new PaymentUser(1, "Christina", "Loessin", "female", [1985, 04, 09], 1);
+const user2 = new FreeUser(2, "Malika", "Rosenkrans", "female", [2014, 03, 21], 2);
 const users = [user1, user2];
-
 
 
 // Make functions/Classes ready for export
 module.exports = {
-    getUsers() { return users; },
+    getUsers() {  return users;  },
     getInterests() {  return interests;  },
     getMatches() {  return matches;  },
     getImage() {  return image;  },
